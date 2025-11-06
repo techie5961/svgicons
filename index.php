@@ -111,8 +111,8 @@ main {
   user-select: none;
 }
 .icon svg {
-  width: var(--size,48px);
-  height: var(--size,48px);
+  width:48px;
+  height: 48px;
   fill: var(--color,#000);
   transition: transform .15s;
 }
@@ -151,8 +151,8 @@ main {
     </form>
   </div>
   <div class="controls">
-    <label>Size <input type="range" id="sizeRange" min="16" max="200" value="48"><span id="sizeVal">48px</span></label>
-    <label>Manual px <input type="number" id="sizeInput" value="48"></label>
+    <label>Size <input type="range" id="sizeRange" min="16" max="200" value="20"><span id="sizeVal">20px</span></label>
+    <label>Manual px <input type="number" id="sizeInput" value="20"></label>
     <label>Color <input type="color" id="colorPicker" value="#000000"></label>
     <label>Hex/RGB <input type="text" id="colorText" placeholder="#000000 or rgb(0,0,0)"></label>
   </div>
@@ -184,7 +184,7 @@ const notify = document.getElementById('notify');
 const sizeVal = document.getElementById('sizeVal');
 
 let currentColor = '#000000';
-let currentSize = 48;
+let currentSize = 20;
 
 function applySettings(){
   document.documentElement.style.setProperty('--color', currentColor);
@@ -214,11 +214,16 @@ search.addEventListener('input',()=>{
 sizeRange.addEventListener('input',e=>{
   currentSize = +e.target.value;
   sizeInput.value = currentSize;
-  applySettings();
+//  applySettings();
 });
+
 sizeInput.addEventListener('input',e=>{
   let v = parseInt(e.target.value);
-  if(!isNaN(v) && v>0){ currentSize = v; sizeRange.value=v; applySettings(); }
+  if(!isNaN(v) && v>0){ 
+    currentSize = v;
+     sizeRange.value=v;
+   //  applySettings();
+     }
 });
 
 function validColor(str){
@@ -246,6 +251,7 @@ colorText.addEventListener('change',e=>{
 
 document.querySelectorAll('.icon').forEach(icon=>{
   icon.addEventListener('click',()=>{
+    currentColor='CurrentColor';
     const svg = icon.innerHTML
       .replace(/fill="[^"]*"/g, `fill="${currentColor}"`)
       .replace(/width="[^"]*"/g, `width="${currentSize}"`)
